@@ -1,56 +1,53 @@
 import tkinter as tk
 from time import strftime
 
+def set_light_theme():
+    light_frame = tk.Frame(root, bg="white")
+    light_frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    light_label = tk.Label(light_frame, font=('calibri', 40, 'bold'), background='White', foreground='black')
+    light_label.pack(anchor="s")
 
-def light_theme():
-    frame = tk.Frame(root, bg="white")
-    frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
-    lbl_1 = tk.Label(frame, font=('calibri', 40, 'bold'),
-                     background='White', foreground='black')
-    lbl_1.pack(anchor="s")
-
-    def time():
+    def display_time():
         string = strftime('%I:%M:%S %p')
-        lbl_1.config(text=string)
-        lbl_1.after(1000, time)
-    time()
+        light_label.config(text=string)
+        light_label.after(1000, display_time)
+    
+    display_time()
 
+def set_dark_theme():
+    dark_frame = tk.Frame(root, bg="black")
+    dark_frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    dark_label = tk.Label(dark_frame, font=('calibri', 40, 'bold'), background='black', foreground='white')
+    dark_label.pack(anchor="s")
 
-def dark_theme():
-    frame = tk.Frame(root, bg="#22478a")
-    frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
-    lbl_2 = tk.Label(frame, font=('calibri', 40, 'bold'),
-                     background='#22478a', foreground='black')
-    lbl_2.pack(anchor="s")
-
-    def time():
+    def display_time():
         string = strftime('%I:%M:%S %p')
-        lbl_2.config(text=string)
-        lbl_2.after(1000, time)
-    time()
-
+        dark_label.config(text=string)
+        dark_label.after(1000, display_time)
+    
+    display_time()
 
 root = tk.Tk()
 root.title("Digital-Clock")
 canvas = tk.Canvas(root, height=140, width=400)
 canvas.pack()
 
-frame = tk.Frame(root, bg='#22478a')
-frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
-lbl = tk.Label(frame, font=('calibri', 40, 'bold'),
-                     background='#22478a', foreground='black')
-lbl.pack(anchor="s")
+main_frame = tk.Frame(root, bg='black')
+main_frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+main_label = tk.Label(main_frame, font=('calibri', 40, 'bold'), background='black', foreground='white')
+main_label.pack(anchor="s")
 
-def time():
+def display_time():
     string = strftime('%I:%M:%S %p')
-    lbl.config(text=string)
-    lbl.after(1000, time)
-time()
+    main_label.config(text=string)
+    main_label.after(1000, display_time)
+
+display_time()
 
 menubar = tk.Menu(root)
 theme_menu = tk.Menu(menubar, tearoff=0)
-theme_menu.add_command(label="Light", command=light_theme)
-theme_menu.add_command(label="Dark", command=dark_theme)
+theme_menu.add_command(label="Light", command=set_light_theme)
+theme_menu.add_command(label="Dark", command=set_dark_theme)
 menubar.add_cascade(label="Theme", menu=theme_menu)
 root.config(menu=menubar)
 root.mainloop()
